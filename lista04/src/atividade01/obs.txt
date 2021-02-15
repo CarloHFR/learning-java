@@ -1,0 +1,28 @@
+Os construtores não estão representados nas classes pois tornaria o diagrama grande demais e dificultaria a visualização.
+
+
+Os construtores então são apresentados abaixo:
+
+
+- Classe Pessoa:
+Pessoa(nome: String, telefone: String, endereco: String): void
+
+
+- classe Fornecedor: 
+Fornecedor(nome: String, telefone: String, endereco: String, valorCredito: Double, valorDivida: Double): void
+
+
+- Classe Empregado:
+Empregado(nome: String, telefone: String, endereco: String, codigoSetor: int, salarioBase: Double, imposto: Double): void 
+
+
+- Classe Administrador
+Administrador(nome: String, telefone: String, endereco: String, codigoSetor: int, salarioBase: Double, imposto: Double, ajudaDeCusto: Double): void
+
+
+- Classe Operario
+Operario(nome: String, telefone: String, endereco: String, codigoSetor: int, salarioBase: Double, imposto: Double, valorProducao: Double, comissao: Double): void 
+
+
+- Classe vendedor
+Vendedor(nome: String, telefone: String, endereco: String, codigoSetor: int, salarioBase: Double, imposto: Double, valorVendas: Double, comissao: Double): void 
