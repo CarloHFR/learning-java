@@ -5,22 +5,34 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
+import models.ContaCorrenteDAO;
+import models.ContaCorrente;
+
+
 public class App extends Application 
 {
-
-    /*
-    public static void connect()
+    public static void teste()
     {
-        String serverName = "localhost";    //caminho do servidor do BD
-        String mydatabase = "bancojava";        //nome do seu banco de dados
-        String username = "root";        //nome de um usuário de seu BD
-        String password = "";      //sua senha de acesso
+        //ContaCorrente conta = new ContaCorrente(1, 1, "eu", 10.0, "senha");
+        //ContaCorrenteDAO dao = new ContaCorrenteDAO();
+        //dao.salvarConta(conta);
 
-        MySQLConnection mysqlConnection = new MySQLConnection(serverName, mydatabase, username, password);
+        //ContaCorrenteDAO dao = new ContaCorrenteDAO();
+        //ContaCorrente conta = dao.buscarConta(3);
 
-        mysqlConnection.update("SELECT * FROM teste");
+        //System.out.println("Senha cliente: " + conta.getSenha());
+
+
+        //ContaCorrente conta = new ContaCorrente(3, 1, "Carlo", 100.0, "outra senha");
+        //ContaCorrenteDAO dao = new ContaCorrenteDAO();
+        //dao.atualizarConta(conta);
+
+        //ContaCorrenteDAO dao = new ContaCorrenteDAO();
+        //dao.deletarConta(1);
+
+        
     }
-    */
+    
     
 
     @Override
@@ -36,6 +48,7 @@ public class App extends Application
 
     public static void main(String[] args) 
     {
+        teste();
         launch();
     }
 
