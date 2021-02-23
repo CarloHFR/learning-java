@@ -21,30 +21,27 @@ public class MySQLConnection extends Config
 
             if(this.connection != null) 
             {
-                System.out.println("Conexão com o banco de dados realizada com sucesso.");
                 return true;
             }else 
             {
-                System.err.println("Não foi possível conectar com o banco de dados.");
                 return false;
             }
         }catch (SQLException e)
         {
-            System.err.println("Não foi possível conectar com o banco de dados.");
             return false;
         }
     }
 
 
-    public void closeConnection()
+    public boolean closeConnection()
     {
         try
         {
             this.connection.close();
-            System.out.println("A conexão com o banco de dados foi finalizada.");
+            return true;
         }catch (SQLException e)
         {
-            System.err.println("Não foi possível fechar a conexão com o banco de dados.");
+            return false;
         }
     }
 }

@@ -2,67 +2,174 @@ package controllers;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.Parent;
 import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-//import javafx.application.Application;
+import java.io.PrintStream;
+import java.io.OutputStream;
+import javafx.application.Platform;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+
+import models.Banco;
+import models.ContaCorrente;
 
 
-public class MainController
+public class MainController 
 {
+    @FXML
+    private Button btnSacar;
+
+    @FXML
+    private Button btnCadastrar;
+
+    @FXML
+    private Button btnDeletar;
+
+    @FXML
+    private Button btnDepositar;
+
+    @FXML
+    private Button btnListar;
+
+    @FXML
+    private Button btnSair;
+
+    @FXML
+    private TextField textNumeroConta;
+
+    @FXML
+    private TextField textAgencia;
+
+    @FXML
+    private TextField textNomeCliente;
+
+    @FXML
+    private TextField textValor;
+
+    @FXML
+    private PasswordField textSenha;
+
+
+    @FXML
+    private TextArea textLog;
+    private PrintStream ps;
+
+
+    private Banco banco = new Banco();
+
+
     @FXML
     public void sacar() throws IOException
     {
-        
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/sacar.fxml"));
-        loader.load();
-        Parent root = loader.getRoot();
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.sizeToScene();
-        stage.setScene(scene);
-        stage.show();
+        try
+        {
+            int conta = Integer.valueOf(textNumeroConta.getText());
+            Double valor = Double.valueOf(textValor.getText());
+            String senha = textSenha.getText();
 
-        
+            if(banco.sacar(conta, senha, valor))
+            {
+                this.printToConsole("Saque bem sucedido");
+            }else
+            {
+                this.printToConsole("Nao foi possivel realizar o saque");
+            }
+
+        }catch(Exception e)
+        {
+            this.printToConsole("Erro ao efetuar o saque");
+        }
     }
 
 
     @FXML
-    public void cadastrar() 
+    public void cadastrar() throws IOException
+    {
+        try
+        {
+            int conta = Integer.valueOf(textNumeroConta.getText());
+            int agencia = Integer.valueOf(textAgencia.getText());
+            String nomeCliente = textNomeCliente.getText();
+            Double valor = Double.valueOf(textValor.getText());
+            String senha = textSenha.getText();
+
+            ContaCorrente contaCorrente = new ContaCorrente(conta, agencia, nomeCliente, valor, senha);
+
+            if(banco.criarConta(contaCorrente))
+            {
+                this.printToConsole("Conta criada com sucesso");
+            }else
+            {
+                this.printToConsole("Nao foi possivel criar a conta");
+            }
+
+        }catch(Exception e)
+        {
+            this.printToConsole("Erro ao criar a conta");
+        }
+    }
+
+
+    @FXML
+    public void deletar() throws IOException
     {
 
     }
 
 
     @FXML
-    public void deletar() 
+    public void depositar() throws IOException
     {
 
     }
 
 
     @FXML
-    public void depositar() 
+    public void listar() throws IOException
     {
 
     }
 
 
     @FXML
-    public void listar() 
-    {
-
-    }
-
-
-    @FXML
-    public void sair() 
+    public void sair() throws IOException
     {
         System.exit(0);
     }
 
+
+    public void printToConsole(String term) throws IOException
+    {
+        System.setOut(ps);
+        System.setErr(ps);
+        System.out.println(term);
+    }
+
+
+    public void initialize() 
+    {
+        ps = new PrintStream(new Console(textLog)) ;
+    }
+
+
+    public class Console extends OutputStream 
+    {
+        private TextArea textLog;
+
+        public Console(TextArea textLog) 
+        {
+            this.textLog = textLog;
+        }
+
+        public void appendText(String valueOf) 
+        {
+            Platform.runLater(() -> textLog.appendText(valueOf));
+        }
+
+        public void write(int b) throws IOException 
+        {
+            appendText(String.valueOf((char)b));
+        }
+    }
 }

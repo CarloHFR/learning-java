@@ -42,16 +42,14 @@ public class ContaCorrenteDAO extends MySQLConnection
             
         }catch(SQLException e)
         {
-            System.err.println("Não foi possível buscar o registro no banco de dados.");
+            return null;
         }
-
-        return null;
     }
     
 
     public boolean salvarConta(ContaCorrente contaCorrente)
     {
-        String query = "INSERT INTO conta_corrente (agencia, nome_cliente, saldo, senha, status_conta) VALUES (?, ?, ?, ?, true)";
+        String query = "INSERT INTO conta_corrente (numero_conta, agencia, nome_cliente, saldo, senha, status_conta) VALUES (?, ?, ?, ?, ?, true)";
 
         try
         {
@@ -59,10 +57,12 @@ public class ContaCorrenteDAO extends MySQLConnection
 
             PreparedStatement statement = this.connection.prepareStatement(query);
 
-            statement.setInt(1, contaCorrente.getAgencia());
-            statement.setString(2, contaCorrente.getNomeCliente());
-            statement.setDouble(3, contaCorrente.getSaldo());
-            statement.setString(4, contaCorrente.getSenha());
+            statement.setInt(1, contaCorrente.getConta());
+            statement.setInt(2, contaCorrente.getAgencia());
+            statement.setString(3, contaCorrente.getNomeCliente());
+            statement.setDouble(4, contaCorrente.getSaldo());
+            statement.setString(5, contaCorrente.getSenha());
+            
             
             int rowsInserted = statement.executeUpdate();
 
@@ -75,7 +75,7 @@ public class ContaCorrenteDAO extends MySQLConnection
 
         }catch(SQLException e)
         {
-            System.err.println("Não foi possível inserir registro no banco de dados.");
+            return false;
         }
 
         return false;
@@ -108,7 +108,7 @@ public class ContaCorrenteDAO extends MySQLConnection
 
         }catch(SQLException e)
         {
-            System.err.println("Não foi possível atualizar o registro no banco de dados.");
+            return false;
         }
 
         return false;
@@ -138,7 +138,7 @@ public class ContaCorrenteDAO extends MySQLConnection
 
         }catch(SQLException e)
         {
-            System.err.println("Não foi possível deletar o registro no banco de dados.");
+            return false;
         }
 
         return false;
@@ -176,9 +176,7 @@ public class ContaCorrenteDAO extends MySQLConnection
             
         }catch(SQLException e)
         {
-            System.err.println("Não foi possível buscar o registro no banco de dados.");
+            return null;
         }
-
-        return null;
     }
 }
