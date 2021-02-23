@@ -5,9 +5,8 @@ package models;
 
 
 import java.util.List;
-import java.util.ArrayList;
-
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 

@@ -1,6 +1,7 @@
 package controllers;
 
 
+import java.util.List;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+
 
 import models.Banco;
 import models.ContaCorrente;
@@ -114,6 +116,22 @@ public class MainController
     @FXML
     public void deletar() throws IOException
     {
+        try
+        {
+            int conta = Integer.valueOf(textNumeroConta.getText());
+            
+            if(banco.deletarConta(conta))
+            {
+                this.printToConsole("Conta deletada com sucesso");
+            }else
+            {
+                this.printToConsole("Nao foi possivel deletar a conta");
+            }
+
+        }catch(Exception e)
+        {
+            this.printToConsole("Erro ao deletar a conta");
+        }
 
     }
 
@@ -121,14 +139,55 @@ public class MainController
     @FXML
     public void depositar() throws IOException
     {
+        try
+        {
+            int conta = Integer.valueOf(textNumeroConta.getText());
+            Double valor = Double.valueOf(textValor.getText());
 
+            if(banco.depositar(conta, valor))
+            {
+                this.printToConsole("Deposito realizado com sucesso");
+            }else
+            {
+                this.printToConsole("Nao foi possivel realizar o deposito");
+            }
+
+        }catch(Exception e)
+        {
+            this.printToConsole("Erro ao realizar o deposito");
+        }
     }
 
 
     @FXML
     public void listar() throws IOException
     {
+        try
+        {
+            List<ContaCorrente> contas = banco.listarContas();
 
+            if(contas != null)
+            {
+                for(int i = 0 ; i < contas.size(); i++)
+                {
+                    ContaCorrente contaCorrente = contas.get(i);
+
+                    this.printToConsole("-------------------------------------");
+                    this.printToConsole("Conta: " + contaCorrente.getConta());
+                    this.printToConsole("Agencia: " + contaCorrente.getAgencia());
+                    this.printToConsole("Nome do cliente: " +contaCorrente.getNomeCliente());
+                    this.printToConsole("-------------------------------------");
+                }
+                
+            }else
+            {
+                this.printToConsole("Nao foi possivel listar as contas");
+            }
+
+        }catch(Exception e)
+        {
+            this.printToConsole("Erro ao listar as contas");
+        }
     }
 
 
